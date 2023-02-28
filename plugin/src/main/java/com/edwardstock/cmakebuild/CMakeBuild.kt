@@ -160,6 +160,7 @@ class CMakeBuild : Plugin<Project> {
     private fun build(config: CMakeBuildConfig, buildDir: String) {
         val process = ProcessRunner(config.cmakeBin!!)
         process.addArgs("--build", buildDir)
+        process.addArgs("-j", Runtime.getRuntime().availableProcessors().toString())
         if (isNotWindows()) {
             process.addArgs("--target", "all")
         }
