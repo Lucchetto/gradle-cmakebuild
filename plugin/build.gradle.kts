@@ -2,7 +2,6 @@ plugins {
     id("java-gradle-plugin")
     id("kotlin")
     id("maven-publish")
-    id("signing")
 }
 
 group = "com.edwardstock"
@@ -64,10 +63,6 @@ publishing {
     }
     repositories {
         mavenLocal()
-        maven(url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")) {
-            credentials.username = findProperty("ossrhUsername") as String?
-            credentials.password = findProperty("ossrhPassword") as String?
-        }
     }
 }
 
@@ -106,9 +101,4 @@ afterEvaluate {
 
 project.tasks.withType<PublishToMavenLocal> {
     dependsOn("publishAllPublicationsToMavenLocalRepository")
-}
-
-signing {
-    useGpgCmd()
-    sign(publishing.publications)
 }
